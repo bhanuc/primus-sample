@@ -12,7 +12,7 @@ primus.on('data', function(data) {
   li.innerHTML = JSON.stringify(data);
   document.getElementById('list').appendChild(li);
 });
-var chat = function(){
+var chat = function(event){
   if(event.keyCode == 13) {
     var text = document.getElementById("box").value;
     console.log(text);
@@ -22,7 +22,7 @@ var chat = function(){
 
 </script>
 chat : 
-<input type="textbox" value="" id="box" name="box" onkeydown="chat()"/>
+<input type="textbox" value="" id="box" name="box" onkeydown="chat(event)"/>
 
 
 <ul id="list">

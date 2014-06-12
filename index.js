@@ -37,11 +37,28 @@ primus.on('connection', function (spark) {
 
   // send Connect message to one connect client
   spark.write("CONNECT!!!");
+  
   // receive data
-  spark.on("data", function(data) {
-    console.log(data);
-    // broadcast all client
-    primus.write(validator.escape(data));
+  
+    spark.on('data', function data(packet) {
+    console.log('incoming:', packet);
+
+    //
+    // Close the connection.
+    //
+    if (packet === 'end') spark.end();
+
+    //
+    // Echo the responses.
+    //
+    if (packet.echo) {
+      spark.write(packet.echo);
+    } else {
+       spark.write(validator.escape(packet));
+    }
+
+    //
+    // 
   });
 });
 
